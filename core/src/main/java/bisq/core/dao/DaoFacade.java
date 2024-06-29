@@ -95,7 +95,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
-import java.io.File;
 import java.io.IOException;
 
 import java.util.ArrayList;
@@ -598,14 +597,14 @@ public class DaoFacade implements DaoSetupService {
     }
 
 
-    public List<Bond> getAllBonds() {
-        List<Bond> bonds = new ArrayList<>(bondedReputationRepository.getBonds());
+    public List<Bond<?>> getAllBonds() {
+        List<Bond<?>> bonds = new ArrayList<>(bondedReputationRepository.getBonds());
         bonds.addAll(bondedRolesRepository.getBonds());
         return bonds;
     }
 
-    public List<Bond> getAllActiveBonds() {
-        List<Bond> bonds = new ArrayList<>(bondedReputationRepository.getActiveBonds());
+    public List<Bond<?>> getAllActiveBonds() {
+        List<Bond<?>> bonds = new ArrayList<>(bondedReputationRepository.getActiveBonds());
         bonds.addAll(bondedRolesRepository.getActiveBonds());
         return bonds;
     }
@@ -731,15 +730,15 @@ public class DaoFacade implements DaoSetupService {
         daoStateStorageService.resyncDaoStateFromGenesis(resultHandler);
     }
 
-    public void resyncDaoStateFromResources(File storageDir) throws IOException {
-        daoStateStorageService.resyncDaoStateFromResources(storageDir);
+    public void removeAndBackupAllDaoData() throws IOException {
+        daoStateStorageService.removeAndBackupAllDaoData();
     }
 
     public boolean isMyRole(Role role) {
         return bondedRolesRepository.isMyRole(role);
     }
 
-    public Optional<Bond> getBondByLockupTxId(String lockupTxId) {
+    public Optional<Bond<?>> getBondByLockupTxId(String lockupTxId) {
         return getAllBonds().stream().filter(e -> lockupTxId.equals(e.getLockupTxId())).findAny();
     }
 

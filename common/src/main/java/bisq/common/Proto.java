@@ -24,4 +24,14 @@ import com.google.protobuf.Message;
  */
 public interface Proto {
     Message toProtoMessage();
+
+    default byte[] serialize() {
+        return toProtoMessage().toByteArray();
+    }
+
+    // If the class implements ExcludedFieldsProto this method will be overwritten so that
+    // fields annotated with ExcludeForHash will be excluded.
+    default byte[] serializeForHash() {
+        return serialize();
+    }
 }

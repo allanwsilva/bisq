@@ -26,6 +26,7 @@ import bisq.core.proto.CoreProtoResolver;
 import com.google.common.collect.Lists;
 
 import java.util.HashSet;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Disabled;
 
@@ -77,7 +78,10 @@ public class UserPayloadModelVOTest {
                 0,
                 0,
                 0,
-                Lists.newArrayList()));
+                Lists.newArrayList(),
+                Lists.newArrayList(),
+                Lists.newArrayList(),
+                UUID.randomUUID().toString()));
 
         vo.setRegisteredArbitrator(ArbitratorTest.getArbitratorMock());
         vo.setRegisteredMediator(MediatorTest.getMediatorMock());
